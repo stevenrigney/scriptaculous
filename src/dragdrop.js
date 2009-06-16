@@ -415,8 +415,6 @@ var Draggable = Class.create({
       dropped = Droppables.fire(event, this.element);
       if (!dropped) dropped = false;
     }
-    if(dropped && this.options.onDropped) this.options.onDropped(this.element);
-    Draggables.notify('onEnd', this, event);
 
     var revert = this.options.revert;
     if(revert && Object.isFunction(revert)) revert = revert(this.element);
@@ -435,6 +433,9 @@ var Draggable = Class.create({
 
     if(this.options.endeffect)
       this.options.endeffect(this.element);
+
+    if(dropped && this.options.onDropped) this.options.onDropped(this.element);
+    Draggables.notify('onEnd', this, event);
 
     Draggables.deactivate(this);
     Droppables.reset();
